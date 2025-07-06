@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registration Form with Validation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdf6f0; /* Light pastel background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    .container h2 {
+      text-align: center;
+      color: #5e548e;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #6d597a;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+      background-color: #f9f7fb;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #b5838d;
+      outline: none;
+    }
+    input[type="submit"] {
+      background-color: #9f86c0;
+      color: white;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    input[type="submit"]:hover {
+      background-color: #be95c4;
+    }
+    .error {
+      background-color: #fde2e4;
+      color: #b00020;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #f9c6c9;
+      border-radius: 4px;
+      font-size: 0.9em;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Register</h2>
+    <form id="myForm" onsubmit="return validateForm()">
+      <div class="error" id="errorMsg"></div>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" />
+
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      errorMsg.style.display = "none";
+      errorMsg.textContent = "";
+
+      if (name === "") {
+        errorMsg.textContent = "Please enter your name.";
+        errorMsg.style.display = "block";
+        return false;
+      }
+
+      if (email === "") {
+        errorMsg.textContent = "Please enter your email.";
+        errorMsg.style.display = "block";
+        return false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        errorMsg.textContent = "Please enter a valid email address.";
+        errorMsg.style.display = "block";
+        return false;
+      }
+
+      if (password === "") {
+        errorMsg.textContent = "Please enter a password.";
+        errorMsg.style.display = "block";
+        return false;
+      }
+
+      if (password.length < 6) {
+        errorMsg.textContent = "Password must be at least 6 characters long.";
+        errorMsg.style.display = "block";
+        return false;
+      }
+
+      alert("Form submitted successfully!");
+      return true;
+    }
+  </script>
+</body>
+</html>
